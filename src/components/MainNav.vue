@@ -23,6 +23,10 @@
             </li>
           </ul>
         </nav>
+        <div class="ml-auto flex h-full items-center">
+          <profile-image v-if="isLoggedIn" />
+          <action-button v-else />
+        </div>
       </div>
     </div>
   </header>
@@ -31,8 +35,15 @@
 <!-- vue2 ->option api
 vue3-> composition api  -->
 <script>
+import ActionButton from '@/components/ActionButton.vue';
+import ProfileImage from '@/components/ProfileImage.vue';
+
 export default {
   name: 'mainNav',
+  components: {
+    ActionButton,
+    ProfileImage
+  },
   data() {
     return {
       company: 'Next Job!',
@@ -44,8 +55,10 @@ export default {
         'How we hire',
         'Students',
         'Jobs'
-      ]
+      ],
+      isLoggedIn: false
     };
   }
 };
 </script>
+import ProfileImageVue from './ProfileImage.vue';
