@@ -13,7 +13,9 @@ See [Vite Configuration Reference](https://vitejs.dev/config/).
 ## Project Setup
 
 ```sh
-npm install
+docker-compose up --build
+
+docker exec -it jobs sh
 ```
 
 ### Compile and Hot-Reload for Development
@@ -39,11 +41,3 @@ npm run test:unit
 ```sh
 npm run lint
 ```
-
-docker build -t jobs .
-
-docker run --name jobs --rm -d -p 3000:3000 jobs
-
-docker exec -it jobs sh
-
-docker exec -it jobs sh

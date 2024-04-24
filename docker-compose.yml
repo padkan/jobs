@@ -1,11 +1,13 @@
 version: '3.8'
 
 services:
-  my-node-app:
+  jobs:
+    hostname: 'jobs'
     build:
-      context: .
-      dockerfile: Dockerfile
+      context: ./
+      dockerfile: docker/Dockerfile
     ports:
       - '3000:3000'
     volumes:
-      - .:/usr/src/app
+      - '.:/app:deleated'
+      - '/app/node_modules'

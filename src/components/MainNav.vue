@@ -3,7 +3,7 @@
     <div class="fixed left-0 top-0 h-16 w-full bg-white">
       <!-- h-16 4rem 64px  text-xl 20px-->
       <div
-        class="border- border-x-brand-gray-1 mx-auto flex h-full flex-nowrap border-b border-solid px-8"
+        class="border- mx-auto flex h-full flex-nowrap border-b border-solid border-x-brand-gray-1 px-8"
       >
         <a href="/" class="flex h-full items-center text-xl font-semibold">{{
           company
