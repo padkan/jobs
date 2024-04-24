@@ -39,3 +39,11 @@ npm run test:unit
 ```sh
 npm run lint
 ```
+
+docker build -t jobs .
+
+docker run --name jobs --rm -d -p 3000:3000 jobs
+
+docker exec -it jobs sh
+
+docker exec -it jobs sh
