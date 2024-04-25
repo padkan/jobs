@@ -1,12 +1,45 @@
 <template>
-  <button
-    class="hover:shadow-blue rounded border-0 bg-brand-blue-1 px-5 py-3 font-medium text-white"
-  >
-    Sign in
+  <button :class="buttonClass">
+    <!-- v-on: -> @ lint to add action on v-on:click=""-->
+    {{ text }}
   </button>
 </template>
 <script>
 export default {
-  name: 'ActionButton'
+  name: 'ActionButton',
+  props: {
+    text: {
+      type: String,
+      required: true
+    },
+    type: {
+      type: String,
+      required: false,
+      default: 'primary',
+      validator(value) {
+        return ['primary', 'secondary'].includes(value);
+      }
+    }
+  },
+  computed: {
+    buttonClass() {
+      return {
+        // primary: this.type === 'primary',
+        // secondary: this.type === 'secondary'
+        [this.type]: true
+      };
+    }
+  }
 };
 </script>
+<style scoped>
+button {
+  @apply rounded px-5 py-3 font-medium;
+}
+.primary {
+  @apply border-0 bg-brand-blue-1 text-white hover:shadow-blue;
+}
+.secondary {
+  @apply hover:bg-brand-blue-2 bg-transparent text-brand-blue-1 hover:text-white;
+}
+</style>
