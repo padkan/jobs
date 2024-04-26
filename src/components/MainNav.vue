@@ -1,5 +1,5 @@
 <template>
-  <header class="w-full text-sm">
+  <header :class="['w-full', 'text-sm', headerHeightClass]">
     <div class="fixed left-0 top-0 h-16 w-full bg-white">
       <!-- h-16 4rem 64px  text-xl 20px-->
       <div
@@ -64,6 +64,14 @@ export default {
       ],
       isLoggedIn: false
     };
+  },
+  computed: {
+    headerHeightClass() {
+      return {
+        'h-16': !this.isLoggedIn,
+        'h-32': this.isLoggedIn
+      };
+    }
   },
   methods: {
     loginUser() {
