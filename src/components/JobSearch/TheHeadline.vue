@@ -1,10 +1,10 @@
 <template>
-  <section>
+  <section class="mb-16">
     <h1 class="mb-14 text-8xl font-bold tracking-tighter">
       <!-- 14 3.5rem 56px -->
       <span :class="actionClasses">{{ action }} </span><br />for everyone
     </h1>
-    <h2 class="text-3xl">Find your next job</h2>
+    <h2 class="text-3xl">Find your next job.</h2>
   </section>
 </template>
 

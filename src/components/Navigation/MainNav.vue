@@ -39,9 +39,9 @@
 <!-- vue2 ->option api
 vue3-> composition api  -->
 <script>
-import ActionButton from '@/components/ActionButton.vue';
-import ProfileImage from '@/components/ProfileImage.vue';
-import SubNav from '@/components/SubNav.vue';
+import ActionButton from '@/components/Shared/ActionButton.vue';
+import ProfileImage from '@/components/Navigation/ProfileImage.vue';
+import SubNav from '@/components/Navigation/SubNav.vue';
 
 export default {
   name: 'MainNav',
@@ -80,6 +80,3 @@ export default {
   }
 };
 </script>
-import ProfileImageVue from './ProfileImage.vue';import SubNavVue from
-'./SubNav.vue'; import SubNavVue from './SubNav.vue'; import SubNavVue from
-'./SubNav.vue';
