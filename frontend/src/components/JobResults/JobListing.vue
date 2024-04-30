@@ -1,16 +1,28 @@
 <template>
   <li class="mb-7">
     <router-link
-      to="/jobs/results/1"
-      class="border-brand-gray-2 hover:shadow-gray mx-auto block rounded border-solid bg-white"
+      :to="jobPageLink"
+      class="mx-auto block rounded border-solid border-brand-gray-2 bg-white hover:shadow-gray"
     >
-      <div class="border-brand-gray-2 mx-8 border-b border-solid pb-2 pt-5">
+      <div class="mx-8 border-b border-solid border-brand-gray-2 pb-2 pt-5">
         <h2 class="mb-2 text-2xl">
-          Technical Program Manager, Perception, Augmented Reality
+          {{ job.title }}
         </h2>
         <div class="flex flex-row align-middle">
-          <div class="mr-5"><span>Next Job</span></div>
-          <div><span>San Francisco, CA, USA</span></div>
+          <div class="mr-5">
+            <span>{{ job.organization }}</span>
+          </div>
+          <div>
+            <ul>
+              <li
+                v-for="location in job.locations"
+                :key="location"
+                class="mr-5 inline-block"
+              >
+                <span>{{ location }}</span>
+              </li>
+            </ul>
+          </div>
         </div>
       </div>
       <div class="px-8 py-4">
@@ -18,17 +30,17 @@
           <h3 class="mb-2 mt-1">Qualifications</h3>
           <div>
             <ul class="list-disc pl-8">
-              <li>Bachelor 's degree or equivalent practical exprience.'</li>
-              <li>5 years of exprenebce in program management.</li>
-              <li>
-                Experience analyzing data through querying database (e.q ., SQL)
-                using spreadsheet software, and creating statistical models.
+              <li
+                v-for="qualification in job.minimumQualifications"
+                :key="qualification"
+              >
+                {{ qualification }}
               </li>
             </ul>
           </div>
         </div>
         <div class="mt-2 text-center">
-          <router-link to="/jobs/results/1" class="text-brand-blue-1">
+          <router-link :to="jobPageLink" class="text-brand-blue-1">
             Expand
           </router-link>
         </div>
@@ -38,6 +50,17 @@
 </template>
 <script>
 export default {
-  name: 'JobListing'
+  name: 'JobListing',
+  props: {
+    job: {
+      type: Object,
+      require: true
+    }
+  },
+  computed: {
+    jobPageLink() {
+      return `/jobs/results/${this.job.id}`;
+    }
+  }
 };
 </script>
