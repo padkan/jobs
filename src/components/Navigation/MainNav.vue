@@ -5,19 +5,23 @@
       <div
         class="border- mx-auto flex h-full flex-nowrap border-b border-solid border-x-brand-gray-1 px-8"
       >
-        <a :href="url" class="flex h-full items-center text-xl font-semibold">{{
-          company
-        }}</a>
+        <router-link
+          :to="{ name: 'Home' }"
+          class="flex h-full items-center text-xl font-semibold"
+          >Next Job!
+        </router-link>
         <nav class="ml-12 h-full">
           <ul class="flex h-full list-none">
             <li
               v-for="menuItem in menuItems"
-              :key="menuItem"
+              :key="menuItem.text"
               class="ml-9 h-full first:ml-0"
             >
-              <a href="" class="flex h-full items-center py-2.5">{{
-                menuItem
-              }}</a>
+              <router-link
+                :to="menuItem.url"
+                class="flex h-full items-center py-2.5"
+                >{{ menuItem.text }}</router-link
+              >
             </li>
           </ul>
         </nav>
@@ -52,15 +56,13 @@ export default {
   },
   data() {
     return {
-      company: 'Next Job!',
-      url: 'http://localhost:3000/test',
       menuItems: [
-        'Teams',
-        'Locations',
-        'Life at Next Job',
-        'How we hire',
-        'Students',
-        'Jobs'
+        { text: 'Teams', url: '/' },
+        { text: 'Locations', url: '/' },
+        { text: 'Life at Next Job', url: '/' },
+        { text: 'How we hire', url: '/' },
+        { text: 'Students', url: '/' },
+        { text: 'Jobs', url: '/jobs/results' }
       ],
       isLoggedIn: false
     };
