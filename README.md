@@ -15,7 +15,8 @@ See [Vite Configuration Reference](https://vitejs.dev/config/).
 ```sh
 docker-compose up --build
 
-docker exec -it jobs sh
+docker exec -it job-jobs-1 sh
+
 ```
 
 ### Compile and Hot-Reload for Development

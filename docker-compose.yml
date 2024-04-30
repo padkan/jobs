@@ -1,13 +1,25 @@
-version: '3.8'
+version: "3.8"
 
 services:
   jobs:
-    hostname: 'jobs'
+    hostname: "jobs"
     build:
-      context: ./
-      dockerfile: docker/Dockerfile
+      context: ./frontend
+      dockerfile: vue.dockerfile
+      cache_from: []
     ports:
-      - '3000:3000'
+      - "3000:3000"
     volumes:
-      - '.:/app:deleated'
-      - '/app/node_modules'
+      - "./frontend:/app:deleated"
+      - "/app/node_modules"
+  api:
+    hostname: "api"
+    build:
+      context: ./backend
+      dockerfile: node.dockerfile
+      cache_from: []
+    ports:
+      - "3001:3001"
+    volumes:
+      - "./backend:/app:deleated"
+      - "/app/node_modules"
