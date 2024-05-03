@@ -2,15 +2,21 @@ import { render, screen } from '@testing-library/vue';
 import userEvent from '@testing-library/user-event';
 import { RouterLinkStub } from '@vue/test-utils';
 import MainNav from '@/components/Navigation/MainNav.vue';
+import { createTestingPinia } from '@pinia/testing';
+import useUserStore from '@/stores/user';
 
 describe('MainNav', () => {
-  const $route = {
-    name: 'Home'
-  };
-
+  // const pinia = createTestingPinia({ stubActions: false }); //test real behavior of user store
+  //we using original implementation default value is true
+  const pinia = createTestingPinia();
   const renderMainNav = () => {
+    const $route = {
+      name: 'Home'
+    };
+
     render(MainNav, {
       global: {
+        plugins: [pinia],
         mocks: {
           $route
         },
@@ -47,6 +53,7 @@ describe('MainNav', () => {
   describe('when user logs in', () => {
     it('display user profile picture', async () => {
       renderMainNav();
+      const userStore = useUserStore();
       //screen.getByRole('img');// if there is not found return null
       let profileImage = screen.queryByRole('img', {
         name: /user profile image/i
@@ -56,6 +63,8 @@ describe('MainNav', () => {
       const loginButton = screen.getByRole('button', {
         name: /sign in/i
       });
+      userStore.isLoggedIn = true; // in case of complexity it would be very power full
+
       await userEvent.click(loginButton);
       profileImage = screen.getByRole('img', {
         name: /user profile image/i
