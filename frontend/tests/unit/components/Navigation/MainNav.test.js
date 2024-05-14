@@ -3,7 +3,7 @@ import userEvent from '@testing-library/user-event';
 import { RouterLinkStub } from '@vue/test-utils';
 import MainNav from '@/components/Navigation/MainNav.vue';
 import { createTestingPinia } from '@pinia/testing';
-import useUserStore from '@/stores/user';
+import { useUserStore } from '@/stores/user';
 
 describe('MainNav', () => {
   // const pinia = createTestingPinia({ stubActions: false }); //test real behavior of user store

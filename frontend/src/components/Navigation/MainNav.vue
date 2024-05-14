@@ -44,7 +44,7 @@
 vue3-> composition api  -->
 <script>
 import { mapActions, mapState } from 'pinia';
-import useUserStore from '@/stores/user';
+import { useUserStore } from '@/stores/user';
 
 import ActionButton from '@/components/Shared/ActionButton.vue';
 import ProfileImage from '@/components/Navigation/ProfileImage.vue';

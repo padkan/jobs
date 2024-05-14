@@ -2,6 +2,7 @@ import { createPinia, setActivePinia } from 'pinia';
 import axios from 'axios';
 
 import { useJobsStore } from '@/stores/jobs';
+import { useUserStore } from '@/stores/user';
 vi.mock('axios');
 
 describe('state', () => {
@@ -19,12 +20,71 @@ describe('action', () => {
   beforeEach(() => {
     setActivePinia(createPinia());
   });
+
   describe('FETCH_JOBS', () => {
     it('makes API request and stores received jobs', async () => {
       axios.get.mockResolvedValue({ data: ['Job 1', 'Job 2'] });
       const store = useJobsStore();
       await store.FETCH_JOBS();
       expect(store.jobs).toEqual(['Job 1', 'Job 2']);
+    });
+  });
+});
+
+describe('getters', () => {
+  beforeEach(() => {
+    setActivePinia(createPinia());
+  });
+
+  describe('UNIQUE_ORGANISATIONS', () => {
+    it('finds unique organisations from list of jobs', () => {
+      const store = useJobsStore();
+      store.jobs = [
+        { organization: 'Google' },
+        { organization: 'Amazon' },
+        { organization: 'Google' }
+      ];
+      const result = store.UNIQUE_ORGANISATIONS;
+      expect(result).toEqual(new Set(['Google', 'Amazon']));
+    });
+  });
+  describe('FILTER_JOBS_BY_ORGANISATIONS', () => {
+    it('identifies jobs that are associated with the given organisations', () => {
+      const jobsStore = useJobsStore();
+      jobsStore.jobs = [
+        { organization: 'Google' },
+        { organization: 'Amazon' },
+        { organization: 'Microsoft' }
+      ];
+      const userstore = useUserStore();
+      userstore.selectedOrganisations = ['Google', 'Microsoft'];
+
+      const result = jobsStore.FILTER_JOBS_BY_ORGANISATIONS;
+
+      expect(result).toEqual([
+        { organization: 'Google' },
+        { organization: 'Microsoft' }
+      ]);
+    });
+  });
+
+  describe('When a user not selected organisation', () => {
+    it('return all jobs', () => {
+      const jobsStore = useJobsStore();
+      jobsStore.jobs = [
+        { organization: 'Google' },
+        { organization: 'Amazon' },
+        { organization: 'Microsoft' }
+      ];
+      const userstore = useUserStore();
+      userstore.selectedOrganisations = [];
+      const result = jobsStore.FILTER_JOBS_BY_ORGANISATIONS;
+
+      expect(result).toEqual([
+        { organization: 'Google' },
+        { organization: 'Amazon' },
+        { organization: 'Microsoft' }
+      ]);
     });
   });
 });

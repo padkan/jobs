@@ -9,10 +9,7 @@
           <action-button text="Clear Filters" type="secondary" />
         </div>
       </div>
-
-      <collapsible-accordion header="Organizations">
-        <job-filters-sidebar-organizations />
-      </collapsible-accordion>
+      <job-filters-sidebar-organizations />
     </section>
   </div>
 </template>
