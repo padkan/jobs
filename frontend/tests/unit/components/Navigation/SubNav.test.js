@@ -27,7 +27,7 @@ describe('SubNav', () => {
       const routName = 'JobResult';
       const { jobStore } = renderSubNav(routName);
       const numberOfJobs = 16;
-      jobStore.FILTER_JOBS_BY_ORGANISATIONS = Array(numberOfJobs).fill({});
+      jobStore.FILTER_JOBS = Array(numberOfJobs).fill({});
       const jobCount = await screen.findByText(numberOfJobs);
       expect(jobCount).toBeInTheDocument();
     });
@@ -37,7 +37,7 @@ describe('SubNav', () => {
       const routName = 'Home';
       const { jobStore } = renderSubNav(routName);
       const numberOfJobs = 16;
-      jobStore.FILTER_JOBS_BY_ORGANISATIONS = Array(numberOfJobs).fill({});
+      jobStore.FILTER_JOBS = Array(numberOfJobs).fill({});
 
       const jobCount = screen.queryByText(numberOfJobs);
       expect(jobCount).not.toBeInTheDocument();

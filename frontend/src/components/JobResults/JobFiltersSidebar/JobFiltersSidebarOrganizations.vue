@@ -46,7 +46,7 @@ export default {
     ...mapActions(useUserStore, [ADD_SELECTED_ORGANIZATIONS]),
     selectOrganisation() {
       this.ADD_SELECTED_ORGANIZATIONS(this.selectedOrganisations);
-      console.log(this.selectedOrganisations);
+      this.$router.push({ name: 'JobResult' });
     }
   }
 };
