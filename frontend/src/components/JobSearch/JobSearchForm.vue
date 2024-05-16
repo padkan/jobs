@@ -1,6 +1,6 @@
 <template>
   <form
-    class="border-brand-gray-3 flex h-12 w-full items-center rounded-3xl border border-solid"
+    class="flex h-12 w-full items-center rounded-3xl border border-solid border-brand-gray-3"
     @submit.prevent="searchForJob"
   >
     <font-awesome-icon :icon="['fas', 'search']" class="ml-4 mr-3" />
@@ -23,7 +23,7 @@
         <text-input id="role" v-model="role" placeholder="Software engineer" />
       </div>
       <span
-        class="border-brand-gray-3 bg-brand-gray-2 flex h-full items-center border border-l border-r px-3"
+        class="flex h-full items-center border border-l border-r border-brand-gray-3 bg-brand-gray-2 px-3"
         >in</span
       >
       <div class="relative flex h-full flex-1 items-center pl-3">
@@ -49,30 +49,47 @@
   </form>
 </template>
 
-<script>
+<script setup>
+import { ref } from 'vue';
+import { useRouter } from 'vue-router';
 import ActionButton from '@/components/Shared/ActionButton.vue';
 import TextInput from '@/components/Shared/TextInput.vue';
-export default {
-  name: 'JobSearchForm',
-  components: {
-    ActionButton,
-    TextInput
-  },
-  data() {
-    return {
-      role: '',
-      location: ''
-    };
-  },
-  methods: {
-    searchForJob() {
-      if (!this.role || !this.location) return;
-      this.$router.push({
-        name: 'JobResult',
-        query: { role: this.role, location: this.location }
-      });
-    }
-  }
+
+const role = ref('');
+const location = ref('');
+
+const router = useRouter();
+
+const searchForJob = () => {
+  if (role.value === '' || role.location === '') return;
+  router.push({
+    name: 'JobResult',
+    query: { role: role.value, location: location.value }
+  });
 };
+
+// export default {
+//   name: 'JobSearchForm',
+//   components: {
+//     ActionButton,
+//     TextInput
+//   },
+//   data() {
+//     return {
+//       role: '',
+//       location: ''
+//     };
+//   },
+//   methods: {
+//     searchForJob() {
+//       if (!this.role || !this.location) return;
+//       this.$router.push({
+//         name: 'JobResult',
+//         query: { role: this.role, location: this.location }
+//       });
+//     }
+//   }
+// };
 </script>
-import ActionButtonVue from './ActionButton.vue';
+import ActionButtonVue from './ActionButton.vue';import { useRouter } from
+'vue-router';useRouter,

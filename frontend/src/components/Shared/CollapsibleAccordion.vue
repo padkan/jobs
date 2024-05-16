@@ -13,29 +13,64 @@
     </div>
   </div>
 </template>
-<script>
-export default {
-  name: 'CollapsibleAccordion',
-  props: {
-    header: {
-      type: String,
-      required: true
-    }
-  },
-  data() {
-    return {
-      isOpen: false
-    };
-  },
-  computed: {
-    caretIcon() {
-      return this.isOpen ? ['fas', 'angle-up'] : ['fas', 'angle-down'];
-    }
-  },
-  methods: {
-    open() {
-      this.isOpen = !this.isOpen;
-    }
+<script setup>
+import { ref, computed } from 'vue';
+defineProps({
+  header: {
+    type: String,
+    required: true
   }
+});
+const isOpen = ref(false);
+
+const open = () => {
+  isOpen.value = !isOpen.value;
 };
+
+const caretIcon = computed(() =>
+  isOpen.value ? ['fas', 'angle-up'] : ['fas', 'angle-down']
+);
+
+///////////// step 2
+// props: {
+//   header: {
+//     type: String,
+//     required: true
+//   }
+// },
+// setup() {
+//   const isOpen = ref(false);
+
+//   const open = () => {
+//     isOpen.value = !isOpen.value;
+//   };
+
+//   const caretIcon = computed(() =>
+//     isOpen.value ? ['fas', 'angle-up'] : ['fas', 'angle-down']
+//   );
+
+//   return { isOpen, open, caretIcon };
+// }
+///////////// step 1 vue2
+// props: {
+//   header: {
+//     type: String,
+//     required: true
+//   }
+// },
+// data() {
+//   return {
+//     isOpen: false
+//   };
+// },
+// computed: {
+//   caretIcon() {
+//     return this.isOpen ? ['fas', 'angle-up'] : ['fas', 'angle-down'];
+//   }
+// },
+// methods: {
+//   open() {
+//     this.isOpen = !this.isOpen;
+//   }
+// }
 </script>

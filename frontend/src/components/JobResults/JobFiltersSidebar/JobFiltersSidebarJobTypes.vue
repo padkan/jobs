@@ -23,31 +23,46 @@
     </div>
   </collapsible-accordion>
 </template>
-<script>
-import { mapState, mapActions } from 'pinia';
-import { useJobsStore, UNIQUE_JOB_TYPES } from '@/stores/jobs';
+<script setup>
+import { ref, computed } from 'vue';
+//import { mapState, mapActions } from 'pinia';
+import { useJobsStore } from '@/stores/jobs';
 import CollapsibleAccordion from '@/components/Shared/CollapsibleAccordion.vue';
-import { useUserStore, ADD_SELECTED_JOB_TYPES } from '@/stores/user';
+import { useUserStore } from '@/stores/user';
+import { useRouter } from 'vue-router';
 
-export default {
-  name: 'JobFiltersSidebarJobTypes',
-  components: {
-    CollapsibleAccordion
-  },
-  data() {
-    return {
-      selectedJobTypes: []
-    };
-  },
-  computed: {
-    ...mapState(useJobsStore, [UNIQUE_JOB_TYPES])
-  },
-  methods: {
-    ...mapActions(useUserStore, [ADD_SELECTED_JOB_TYPES]),
-    selectJobTypes() {
-      this.ADD_SELECTED_JOB_TYPES(this.selectedJobTypes);
-      this.$router.push({ name: 'JobResult' });
-    }
-  }
+const selectedJobTypes = ref([]);
+
+const jobStore = useJobsStore();
+
+const UNIQUE_JOB_TYPES = computed(() => jobStore.UNIQUE_JOB_TYPES);
+
+const userStore = useUserStore();
+const router = useRouter();
+
+const selectJobTypes = () => {
+  userStore.ADD_SELECTED_JOB_TYPES(selectedJobTypes.value);
+  router.push({ name: 'JobResult' });
 };
+// export default {
+//   name: 'JobFiltersSidebarJobTypes',
+//   components: {
+//     CollapsibleAccordion
+//   },
+//   data() {
+//     return {
+//       selectedJobTypes: []
+//     };
+//   },
+//   computed: {
+//     ...mapState(useJobsStore, [UNIQUE_JOB_TYPES])
+//   },
+//   methods: {
+//     ...mapActions(useUserStore, [ADD_SELECTED_JOB_TYPES]),
+//     selectJobTypes() {
+//       this.ADD_SELECTED_JOB_TYPES(this.selectedJobTypes);
+//       this.$router.push({ name: 'JobResult' });
+//     }
+//   }
+// };
 </script>
