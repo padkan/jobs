@@ -48,19 +48,27 @@
     </router-link>
   </li>
 </template>
-<script>
-export default {
-  name: 'JobListing',
-  props: {
-    job: {
-      type: Object,
-      require: true
-    }
-  },
-  computed: {
-    jobPageLink() {
-      return `/jobs/results/${this.job.id}`;
-    }
+<script setup>
+import { computed } from 'vue';
+const props = defineProps({
+  job: {
+    type: Object,
+    require: true
   }
-};
+});
+const jobPageLink = computed(() => `/jobs/results/${props.job.id}`);
+// export default {
+//   name: 'JobListing',
+//   props: {
+//     job: {
+//       type: Object,
+//       require: true
+//     }
+//   },
+//   computed: {
+//     jobPageLink() {
+//       return `/jobs/results/${this.job.id}`;
+//     }
+//   }
+// };
 </script>
