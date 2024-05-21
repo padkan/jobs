@@ -4,11 +4,17 @@ require('@rushstack/eslint-patch/modern-module-resolution');
 module.exports = {
   root: true,
   extends: [
-    'eslint:recommended',
     'plugin:vue/vue3-recommended',
-    '@vue/eslint-config-prettier/skip-formatting',
-    'plugin:vitest-globals/recommended',
-    '@vue/prettier'
+    'eslint:recommended',
+    '@vue/eslint-config-typescript',
+    '@vue/eslint-config-prettier',
+    'plugin:vitest-globals/recommended'
+
+    // '@vue/eslint-config-prettier/skip-formatting',
+    // 'plugin:vitest-globals/recommended',
+    // '@vue/eslint-config-typescript',
+    // '@vue/prettier'
+
     //'@vue/typescript/recommended'
     // 'plugin:prettier',
     //'plugin:prettier-plugin-tailwindcss',
