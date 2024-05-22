@@ -6,13 +6,15 @@ vi.mock('vue-router');
 import MainNav from '@/components/Navigation/MainNav.vue';
 import { createTestingPinia } from '@pinia/testing';
 import { useUserStore } from '@/stores/user';
+import type { Mock } from 'vitest';
+const useRouteMock = useRoute as Mock;
 
 describe('MainNav', () => {
   // const pinia = createTestingPinia({ stubActions: false }); //test real behavior of user store
   //we using original implementation default value is true
   const pinia = createTestingPinia();
   const renderMainNav = () => {
-    useRoute.mockReturnValue({ name: 'Home' });
+    useRouteMock.mockReturnValue({ name: 'Home' });
     render(MainNav, {
       global: {
         plugins: [pinia],

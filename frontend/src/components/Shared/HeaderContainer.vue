@@ -6,8 +6,8 @@
     </div>
   </div>
 </template>
-<script>
-export default {
-  name: 'HeaderContainer'
-};
+<script lang="ts" setup>
+// export default {
+//   name: 'HeaderContainer'
+// };
 </script>

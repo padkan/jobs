@@ -8,42 +8,54 @@
   </section>
 </template>
 
-<script>
+<script lang="ts" setup>
 import nextElementInList from '@/utils/nextElementInList';
-export default {
-  name: 'TheHeadline',
-  data() {
-    return {
-      action: 'Build',
-      interval: null
-    };
-  },
-  computed: {
-    actionClasses() {
-      return {
-        // build: this.action === 'Build',
-        // create: this.action === 'Create',
-        // design: this.action === 'Design',
-        // code: this.action === 'Code'
-        [this.action.toLowerCase()]: true
-      };
-    }
-  },
-  created() {
-    this.changeTitle();
-  },
-  unmounted() {
-    clearInterval(this.interval);
-  },
-  methods: {
-    changeTitle() {
-      this.interval = setInterval(() => {
-        const actions = ['Build', 'Create', 'Design', 'Code'];
-        this.action = nextElementInList(actions, this.action);
-      }, 3000);
-    }
-  }
+import { ref, computed, onMounted, onBeforeUnmount } from 'vue';
+const action = ref('Build');
+const interval = ref<ReturnType<typeof setInterval>>();
+const actionClasses = computed(() => ({ [action.value.toLowerCase()]: true }));
+const changeTitle = () => {
+  interval.value = setInterval(() => {
+    const actions = ['Build', 'Create', 'Design', 'Code'];
+    action.value = nextElementInList(actions, action.value);
+  }, 3000);
 };
+onMounted(changeTitle);
+onBeforeUnmount(() => clearInterval(interval.value));
+// export default {
+//   name: 'TheHeadline',
+//   data() {
+//     return {
+//       action: 'Build',
+//       interval: null
+//     };
+//   },
+//   computed: {
+//     actionClasses() {
+//       return {
+//         // build: this.action === 'Build',
+//         // create: this.action === 'Create',
+//         // design: this.action === 'Design',
+//         // code: this.action === 'Code'
+//         [this.action.toLowerCase()]: true
+//       };
+//     }
+//   },
+//   created() {
+//     this.changeTitle();
+//   },
+//   unmounted() {
+//     clearInterval(this.interval);
+//   },
+//   methods: {
+//     changeTitle() {
+//       this.interval = setInterval(() => {
+//         const actions = ['Build', 'Create', 'Design', 'Code'];
+//         this.action = nextElementInList(actions, this.action);
+//       }, 3000);
+//     }
+//   }
+// };
 </script>
 
 <style scoped>
@@ -60,4 +72,5 @@ export default {
   color: #d93025;
 }
 </style>
-import { onBeforeUnmount } from 'vue';
+import { onBeforeUnmount } from 'vue';, computedimport type { setInterval } from
+'timers/promises';, onMounted, onBeforeMount, onBeforeUnmount

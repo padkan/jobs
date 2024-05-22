@@ -42,7 +42,7 @@
 
 <!-- vue2 ->option api
 vue3-> composition api  -->
-<script>
+<script lang="ts" setup>
 import { mapActions, mapState } from 'pinia';
 import { useUserStore } from '@/stores/user';
 
@@ -50,36 +50,52 @@ import ActionButton from '@/components/Shared/ActionButton.vue';
 import ProfileImage from '@/components/Navigation/ProfileImage.vue';
 import SubNav from '@/components/Navigation/SubNav.vue';
 
-export default {
-  name: 'MainNav',
-  components: {
-    ActionButton,
-    ProfileImage,
-    SubNav
-  },
-  data() {
-    return {
-      menuItems: [
-        { text: 'Teams', url: '/teams' },
-        { text: 'Locations', url: '/' },
-        { text: 'Life at Next Job', url: '/' },
-        { text: 'How we hire', url: '/' },
-        { text: 'Students', url: '/' },
-        { text: 'Jobs', url: '/jobs/results' }
-      ]
-    };
-  },
-  computed: {
-    ...mapState(useUserStore, ['isLoggedIn']), //userStore
-    headerHeightClass() {
-      return {
-        'h-16': !this.isLoggedIn,
-        'h-32': this.isLoggedIn
-      };
-    }
-  },
-  methods: {
-    ...mapActions(useUserStore, ['loginUser'])
-  }
-};
+import { ref, computed } from 'vue';
+const menuItems = ref([
+  { text: 'Teams', url: '/teams' },
+  { text: 'Locations', url: '/' },
+  { text: 'Life at Next Job', url: '/' },
+  { text: 'How we hire', url: '/' },
+  { text: 'Students', url: '/' },
+  { text: 'Jobs', url: '/jobs/results' }
+]);
+const userStore = useUserStore();
+const isLoggedIn = computed(() => userStore.isLoggedIn);
+const headerHeightClass = computed(() => ({
+  'h-16': !isLoggedIn.value,
+  'h-32': isLoggedIn.value
+}));
+const loginUser = userStore.loginUser;
+// export default {
+//   name: 'MainNav',
+//   components: {
+//     ActionButton,
+//     ProfileImage,
+//     SubNav
+//   },
+//   data() {
+//     return {
+//       menuItems: [
+//         { text: 'Teams', url: '/teams' },
+//         { text: 'Locations', url: '/' },
+//         { text: 'Life at Next Job', url: '/' },
+//         { text: 'How we hire', url: '/' },
+//         { text: 'Students', url: '/' },
+//         { text: 'Jobs', url: '/jobs/results' }
+//       ]
+//     };
+//   },
+//   computed: {
+//     ...mapState(useUserStore, ['isLoggedIn']), //userStore
+//     headerHeightClass() {
+//       return {
+//         'h-16': !this.isLoggedIn,
+//         'h-32': this.isLoggedIn
+//       };
+//     }
+//   },
+//   methods: {
+//     ...mapActions(useUserStore, ['loginUser'])
+//   }
+// };
 </script>
