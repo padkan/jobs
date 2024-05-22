@@ -70,6 +70,7 @@ describe('getters', () => {
     describe('when user not selected any organisations', () => {
       it('includes jobs', () => {
         const userStore = useJobsStore();
+        // @ts-expect-error
         userStore.selectedOrganisations = [];
         const jobStore = useJobsStore();
         const job = createJob({ organization: 'Google' });
@@ -80,6 +81,7 @@ describe('getters', () => {
 
       it('identifies if job is associated with given organization', () => {
         const userStore = useJobsStore();
+        // @ts-expect-error
         userStore.selectedOrganisations = ['Google', 'Microsoft'];
         const jobStore = useJobsStore();
         const job = createJob({ organization: 'Google' });
@@ -94,6 +96,7 @@ describe('getters', () => {
     describe('when user not selected any job types', () => {
       it('includes jobs', () => {
         const userStore = useJobsStore();
+        // @ts-expect-error
         userStore.selectedJobTypes = [];
         const jobStore = useJobsStore();
         const job = createJob({ jobType: 'Full-time' });
@@ -104,10 +107,37 @@ describe('getters', () => {
 
       it('identifies if job is associated with given job type', () => {
         const userStore = useJobsStore();
+        // @ts-expect-error
         userStore.selectedJobTypes = ['Full-time', 'Part-time'];
         const jobStore = useJobsStore();
         const job = createJob({ jobType: 'Full-time' });
         const result = jobStore.INCLUDE_JOB_BY_ORGANISATION(job);
+
+        expect(result).toBe(true);
+      });
+    });
+  });
+
+  describe('INCLUDE_JOB_BY_DEGREE', () => {
+    describe('when user not selected any degree', () => {
+      it('includes jobs', () => {
+        const userStore = useJobsStore();
+        // @ts-expect-error
+        userStore.selectedDegrees = [];
+        const jobStore = useJobsStore();
+        const job = createJob();
+        const result = jobStore.INCLUDE_JOB_BY_DEGREE(job);
+
+        expect(result).toBe(true);
+      });
+
+      it('identifies if job is associated with given degrees', () => {
+        const userStore = useJobsStore();
+        // @ts-expect-error
+        userStore.selectedDegrees = ["Master 's"];
+        const jobStore = useJobsStore();
+        const job = createJob({ degree: "Master 's" });
+        const result = jobStore.INCLUDE_JOB_BY_DEGREE(job);
 
         expect(result).toBe(true);
       });

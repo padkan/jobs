@@ -42,11 +42,15 @@ import { useRoute } from 'vue-router';
 //import { mapActions, mapState } from 'pinia';
 import JobListing from '@/components/JobResults/JobListing.vue';
 import { useJobsStore } from '@/stores/jobs';
+import { useDegreesStore } from '@/stores/degrees';
 
 import usePreviousAndNextPages from '@/components/Composables/usePreviousAndNextPages';
 
 const jobStore = useJobsStore();
+const degreesStore = useDegreesStore();
+
 onMounted(jobStore.FETCH_JOBS);
+onMounted(degreesStore.FETCH_DEGREES);
 
 const FILTER_JOBS = computed(() => jobStore.FILTER_JOBS);
 
@@ -124,3 +128,4 @@ const displayedJobs = computed(() => {
 //   }
 // };
 </script>
+useDegreesStore,

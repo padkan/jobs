@@ -11,16 +11,20 @@
       </div>
       <!-- <job-filters-sidebar-organizations />
       <job-filters-sidebar-job-types /> -->
-
+      <job-filters-sidebar-checkbox-group
+        header="Degree"
+        :unique-values="UNIQUE_DEGREES"
+        :action="userStore.ADD_SELECTED_DEGREES"
+      />
       <job-filters-sidebar-checkbox-group
         header="Job Type"
         :unique-values="UNIQUE_JOB_TYPES"
-        :action="useStore.ADD_SELECTED_JOB_TYPES"
+        :action="userStore.ADD_SELECTED_JOB_TYPES"
       />
       <job-filters-sidebar-checkbox-group
         header="Organizations"
         :unique-values="UNIQUE_ORGANISATIONS"
-        :action="useStore.ADD_SELECTED_ORGANIZATIONS"
+        :action="userStore.ADD_SELECTED_ORGANIZATIONS"
       />
     </section>
   </div>
@@ -34,13 +38,16 @@ import JobFiltersSidebarJobTypes from '@/components/JobResults/JobFiltersSidebar
 import JobFiltersSidebarCheckboxGroup from '@/components/JobResults/JobFiltersSidebar/JobFiltersSidebarCheckboxGroup.vue';
 import { useJobsStore } from '@/stores/jobs';
 import { useUserStore } from '@/stores/user';
+import { useDegreesStore } from '@/stores/degrees';
 
 const jobStore = useJobsStore();
+const degreeStore = useDegreesStore();
 
 const UNIQUE_ORGANISATIONS = computed(() => jobStore.UNIQUE_ORGANISATIONS);
 const UNIQUE_JOB_TYPES = computed(() => jobStore.UNIQUE_JOB_TYPES);
+const UNIQUE_DEGREES = computed(() => degreeStore.UNIQUE_DEGREES);
 
-const useStore = useUserStore();
+const userStore = useUserStore();
 
 // export default {
 //   name: 'JobFiltersSidebar',
@@ -52,3 +59,4 @@ const useStore = useUserStore();
 //   }
 // };
 </script>
+import type { ADD_SELECTED_DEGREES } from '@/stores/user';

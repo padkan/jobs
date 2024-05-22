@@ -3,7 +3,9 @@ import { RouterLinkStub } from '@vue/test-utils';
 import { createTestingPinia } from '@pinia/testing';
 
 import JobListings from '@/components/JobResults/JobListings.vue';
-import { FETCH_JOBS, FILTER_JOBS, useJobsStore } from '@/stores/jobs';
+import { useJobsStore } from '@/stores/jobs';
+import { useDegreesStore } from '@/stores/degrees';
+
 import { useRoute } from 'vue-router';
 import type { Mock } from 'vitest';
 
@@ -20,6 +22,7 @@ describe('JobListings', () => {
   const renderJobListings = () => {
     const pinia = createTestingPinia();
     const jobsStore = useJobsStore();
+    const degreesStore = useDegreesStore();
     // @ts-expect-error
     jobsStore.FILTER_JOBS = Array(15).fill({});
 
@@ -34,13 +37,19 @@ describe('JobListings', () => {
         }
       }
     });
-    return { jobsStore };
+    return { jobsStore, degreesStore };
   };
 
   it('fetchs jobs', () => {
     useMockRoute.mockReturnValue({ query: {} });
     const { jobsStore } = renderJobListings();
     expect(jobsStore.FETCH_JOBS).toHaveBeenCalled();
+  });
+
+  it('fetchs degrees', () => {
+    useMockRoute.mockReturnValue({ query: {} });
+    const { degreesStore } = renderJobListings();
+    expect(degreesStore.FETCH_DEGREES).toHaveBeenCalled();
   });
 
   it('creates a job listing for every job', async () => {

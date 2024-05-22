@@ -10,6 +10,7 @@ export const FILTER_JOBS = 'FILTER_JOBS';
 
 export const INCLUDE_JOB_BY_ORGANISATION = 'INCLUDE_JOB_BY_ORGANISATION';
 export const INCLUDE_JOB_BY_JOB_TYPE = 'INCLUDE_JOB_BY_JOB_TYPE';
+export const INCLUDE_JOB_BY_DEGREE = 'INCLUDE_JOB_BY_DEGREE';
 
 export interface JobState {
   jobs: Job[];
@@ -41,7 +42,11 @@ export const useJobsStore = defineStore('jobs', {
       if (userStore.selectedJobTypes.length === 0) return true;
       return userStore.selectedJobTypes.includes(job.jobType);
     },
-
+    [INCLUDE_JOB_BY_DEGREE]: () => (job: Job) => {
+      const userStore = useUserStore();
+      if (userStore.selectedDegrees.length === 0) return true;
+      return userStore.selectedDegrees.includes(job.degree);
+    },
     [UNIQUE_JOB_TYPES](state) {
       const uniqeJobTypes = new Set<string>();
       state.jobs.forEach((job) => uniqeJobTypes.add(job.jobType));
@@ -51,7 +56,8 @@ export const useJobsStore = defineStore('jobs', {
     [FILTER_JOBS](state): Job[] {
       return state.jobs
         .filter((job) => this.INCLUDE_JOB_BY_ORGANISATION(job))
-        .filter((job) => this.INCLUDE_JOB_BY_JOB_TYPE(job));
+        .filter((job) => this.INCLUDE_JOB_BY_JOB_TYPE(job))
+        .filter((job) => this.INCLUDE_JOB_BY_DEGREE(job));
     }
   }
 });
