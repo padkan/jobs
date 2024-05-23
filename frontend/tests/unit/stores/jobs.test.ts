@@ -132,13 +132,44 @@ describe('getters', () => {
       });
 
       it('identifies if job is associated with given degrees', () => {
-        const userStore = useJobsStore();
-        // @ts-expect-error
+        const userStore = useUserStore();
         userStore.selectedDegrees = ["Master 's"];
         const jobStore = useJobsStore();
         const job = createJob({ degree: "Master 's" });
         const result = jobStore.INCLUDE_JOB_BY_DEGREE(job);
+        expect(result).toBe(true);
+      });
+    });
+  });
 
+  describe('INCLUDE_JOB_BY_SKILLS', () => {
+    it('identifies if job matches user s skills', () => {
+      const userStore = useUserStore();
+      userStore.skillsSearchTerm = 'Vue';
+      const jobStore = useJobsStore();
+      const job = createJob({ title: 'Vue Developer' });
+
+      const result = jobStore.INCLUDE_JOB_BY_SKILLS(job);
+      expect(result).toBe(true);
+    });
+
+    it('handles inconsistent charecter casing', () => {
+      const userStore = useUserStore();
+      userStore.skillsSearchTerm = 'vuE';
+      const jobStore = useJobsStore();
+      const job = createJob({ title: 'Vue Developer' });
+
+      const result = jobStore.INCLUDE_JOB_BY_SKILLS(job);
+      expect(result).toBe(true);
+    });
+    describe('when a user not enter any skills filter', () => {
+      it('includes jobs', () => {
+        const userStore = useUserStore();
+        userStore.skillsSearchTerm = '';
+        const jobStore = useJobsStore();
+        const job = createJob({ title: 'Vue Developer' });
+
+        const result = jobStore.INCLUDE_JOB_BY_SKILLS(job);
         expect(result).toBe(true);
       });
     });

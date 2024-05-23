@@ -65,7 +65,7 @@ const headerHeightClass = computed(() => ({
   'h-16': !isLoggedIn.value,
   'h-32': isLoggedIn.value
 }));
-const loginUser = userStore.loginUser;
+const loginUser = userStore.LOGIN_USER;
 // export default {
 //   name: 'MainNav',
 //   components: {

@@ -25,6 +25,11 @@ describe('state', () => {
     const store = useUserStore();
     expect(store.selectedDegrees).toEqual([]);
   });
+
+  it('stores user search term for skills and qualifications', () => {
+    const store = useUserStore();
+    expect(store.skillsSearchTerm).toEqual('');
+  });
 });
 
 describe('actions', () => {
@@ -32,19 +37,19 @@ describe('actions', () => {
     setActivePinia(createPinia());
   });
   //user managment actions
-  describe('loginUser', () => {
+  describe('LOGIN_USER', () => {
     it('log the user in', () => {
       const store = useUserStore();
-      store.loginUser();
+      store.LOGIN_USER();
       expect(store.isLoggedIn).toBe(true);
     });
   });
 
-  describe('logoutUser', () => {
+  describe('LOGOUT_USER', () => {
     it('logout the user', () => {
       const store = useUserStore();
       store.isLoggedIn = true;
-      store.logoutUser();
+      store.LOGOUT_USER();
       expect(store.isLoggedIn).toBe(false);
     });
   });
@@ -69,6 +74,31 @@ describe('actions', () => {
       const store = useUserStore();
       store.ADD_SELECTED_DEGREES(["Bachlor's", "Master's"]);
       expect(store.selectedDegrees).toEqual(["Bachlor's", "Master's"]);
+    });
+  });
+
+  describe('CLEAR_USER_JOB_FILTER_SELECTIONS', () => {
+    it('removes all job filters that user has chosen', () => {
+      const store = useUserStore();
+      store.selectedDegrees = ['Random degree'];
+      store.selectedJobTypes = ['Random job type'];
+      store.selectedOrganisations = ['Random organisation'];
+      store.skillsSearchTerm = 'Vue';
+
+      store.CLEAR_USER_JOB_FILTER_SELECTIONS();
+      expect(store.selectedDegrees).toEqual([]);
+      expect(store.selectedJobTypes).toEqual([]);
+      expect(store.selectedOrganisations).toEqual([]);
+      expect(store.skillsSearchTerm).toEqual('');
+    });
+  });
+
+  describe('UPDATE_SKILLS_SEARCH_TERM', () => {
+    it('received search term for skills the user has enterned', () => {
+      const store = useUserStore();
+      store.skillsSearchTerm = '';
+      store.UPDATE_SKILLS_SEARCH_TERM('Vue');
+      expect(store.skillsSearchTerm).toBe('Vue');
     });
   });
 });
